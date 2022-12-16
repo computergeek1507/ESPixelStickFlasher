@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 		auto file{ std::string(logdir.toStdString() + log_name) };
 		auto rotating = std::make_shared<spdlog::sinks::rotating_file_sink_mt>( file, 1024 * 1024, 5, false);
 
-		m_logger = std::make_shared<spdlog::logger>("ControllerBackup", rotating);
+		m_logger = std::make_shared<spdlog::logger>("ESPixelStickFlasher", rotating);
 		m_logger->flush_on(spdlog::level::debug);
 		m_logger->set_level(spdlog::level::debug);
 		m_logger->set_pattern("[%D %H:%M:%S] [%L] %v");
@@ -105,10 +105,5 @@ void MainWindow::on_pbFlash_clicked()
 void MainWindow::LogMessage(QString const& message, spdlog::level::level_enum llvl)
 {
 	m_logger->log(llvl, message.toStdString());
-}
-
-void MainWindow::RedrawFolder(QString const& folder)
-{
-	m_ui->lblShowFolder->setText(folder);
 }
 
